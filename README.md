@@ -22,7 +22,7 @@
 ## Tutorials for R
 
 - Online IDE for R [here](https://rstudio.cloud).
-- Introduction onto how to use R for network science [here](https://kateto.net/networks-r-igraph).
+- Introduction: how to use R for network science [here](https://kateto.net/networks-r-igraph).
 - You an download R from [here](https://www.r-project.org/).
 - RStudios is a powerful IDE for R [here](https://rstudio.com/products/rstudio/download/).
 - Blog on how to collected data from Twitter [here](https://ecmiindmath.org/2015/12/21/hunting-for-ground-truths/)
