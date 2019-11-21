@@ -2,17 +2,33 @@
 
 ## Papers
 
+- Integrating sentiment and social structure to determine preference alignments: the Irish Marriage Referendum [here](https://royalsocietypublishing.org/doi/full/10.1098/rsos.170154).
+- The Spread of Obesity in a Large Social Network over 32 Years [here](https://www.nejm.org/doi/full/10.1056/NEJMsa066082).
+- Is obesity contagious? Social networks vs. environmental factors in the obesity epidemic [here](https://www.ncbi.nlm.nih.gov/pubmed/18571258).
+- Distinguishing influence-based contagion from homophily-driven diffusion in dynamic networks[here](https://www.pnas.org/content/106/51/21544).
+  - This is a fantastic paper!
+- Dynamical Systems on Networks: A Tutorial [here](https://link.springer.com/book/10.1007/978-3-319-26641-1).
+- "I Wanted to Predict Elections with Twitter and all I got was this Lousy Paper" --- A Balanced Survey on Election Prediction using Twitter Data [here](https://arxiv.org/abs/1204.6441).
+  - The author [Daniel Gayo-Avello](https://scholar.google.com/citations?user=bdCROlQAAAAJ&hl=en) has a load of other interesting papers on the subject.
+- Heart and soul: Sentiment strength detection in the social web with sentistrength [here](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=9&cad=rja&uact=8&ved=2ahUKEwj3ho2L3_blAhXcQkEAHRQrDFwQFjAIegQICBAC&url=http%3A%2F%2Fsentistrength.wlv.ac.uk%2Fdocumentation%2FSentiStrengthChapter.pdf&usg=AOvVaw1c8oFIh5RJja9q4Vy64CZU)
+- An Introduction to ROC Analysis [here](http://people.inf.elte.hu/kiss/11dwhdm/roc.pdf). 
+
 ## Books
 
-- Free online version of Network Science by Albert-László Barabási [here](http://networksciencebook.com/chapter/1)
-- Old version of Networks by Mark Newman [here]()
+- Free online version of Network Science by Albert-László Barabási [here](http://networksciencebook.com/chapter/1).
+- Free online version of R for Data Science by Garrett Grolemund and Hadley Wickham [here](https://r4ds.had.co.nz/).
+<!--- - Old version of Networks by Mark Newman [here]() --->
 
 ## Tutorials for R
 
-- Introduction onto how to use R for network science [here](https://kateto.net/networks-r-igraph)
-- Interative introduction to R [here](https://thisisaest.shinyapps.io/section_1/)
-- Interative introduction to the tidyverse [here](https://thisisaest.shinyapps.io/section_2/)
+- Online IDE for R [here](https://rstudio.cloud).
+- Introduction onto how to use R for network science [here](https://kateto.net/networks-r-igraph).
+- You an download R from [here](https://www.r-project.org/).
+- RStudios is a powerful IDE for R [here](https://rstudio.com/products/rstudio/download/).
+
+- Interative introduction to R [here](https://davidjpos.shinyapps.io/section_1/).
+- Interative introduction to the tidyverse [here](https://davidjpos.shinyapps.io/section_2/).
 
 ## Slides
 
-- Slides are [here]()
+- The slide deck is in the main folder.
