@@ -30,7 +30,12 @@
 
 - Interative introduction to R [here](https://davidjpos.shinyapps.io/section_1/).
 - Interative introduction to the tidyverse [here](https://davidjpos.shinyapps.io/section_2/).
+- ggplot function references [here](https://ggplot2.tidyverse.org/reference/).
 
 ## Slides
 
 - The slide deck is in the main folder.
+
+## Other useful links
+
+- Automatically generate latex tables and formate [here](https://www.tablesgenerator.com/latex_tables).
