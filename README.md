@@ -23,18 +23,18 @@
 - Free version of Computer Age Statistical Inference by Trevor Hastie and Bradley Efron [here](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=3&cad=rja&uact=8&ved=2ahUKEwiG2rbKiYjmAhWoQkEAHXm-CPEQFjACegQIBBAC&url=https%3A%2F%2Fweb.stanford.edu%2F~hastie%2FCASI_files%2FPDF%2Fcasi.pdf&usg=AOvVaw35RkePmQDVbV9mFQfiCn73).
 <!--- - Old version of Networks by Mark Newman [here]() --->
 
-## Tutorials for R
+## Tutorials and useful links for R
 
 - Online IDE for R [here](https://rstudio.cloud).
 - Introduction: how to use R for network science [here](https://kateto.net/networks-r-igraph).
 - You an download R from [here](https://www.r-project.org/).
 - RStudios is a powerful IDE for R [here](https://rstudio.com/products/rstudio/download/).
 - Blog on how to collected data from Twitter [here](https://ecmiindmath.org/2015/12/21/hunting-for-ground-truths/)
+- ggplot function references [here](https://ggplot2.tidyverse.org/reference/).
 
-
+## Interactive Tutorials in R
 - Interative introduction to R [here](https://davidjpos.shinyapps.io/section_1/).
 - Interative introduction to the tidyverse [here](https://davidjpos.shinyapps.io/section_2/).
-- ggplot function references [here](https://ggplot2.tidyverse.org/reference/).
 
 ## Slides
 
