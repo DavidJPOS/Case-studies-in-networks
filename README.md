@@ -17,6 +17,7 @@
 
 - Free online version of Network Science by Albert-László Barabási [here](http://networksciencebook.com/chapter/1).
 - Free online version of R for Data Science by Garrett Grolemund and Hadley Wickham [here](https://r4ds.had.co.nz/).
+- Free online version of Text Mining with R by Julia Silge and David Robinson [here](https://www.tidytextmining.com/).
 <!--- - Old version of Networks by Mark Newman [here]() --->
 
 ## Tutorials for R
