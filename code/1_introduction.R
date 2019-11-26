@@ -1,32 +1,44 @@
 
 
 # load libraries that we are going to use ---------------------------------
+rm(list = ls()) # ls() lists all the objects in name space
+# rm removes object. (Just to make sure the workspace is clean)
+
 
 # # if you haven't install the libraries that we are going to use
 # install.packages("dplyr")
 # install.packages("igraph")
 # install.packages('igraphdata')
 
-library(igraph)
-library(igraphdata)
-library(tidyverse)
+library(igraph) # graph analysis tool
+library(igraphdata) # igraph data sets
+library(tidyverse) # family of packages that makes analysis and plotting 
+# data easier
 
 # creating graphs in r ----------------------------------------------------
 
+# here we are going to recreate some simple plots from the slides
+
+# create an adj matrix
 adj_mat <- matrix(data = c(0,1,1,0,
-                           1,0,1,0,
+                           1,0,1,1,
                            1,1,0,0,
                            0,1,0,0), 
+                  # no of rows and cols
                   nrow = 4, ncol = 4, byrow = TRUE)
+# by defauls matrix fills by cols, i perfer by row
 
+# create an unidired matrix from the adj_mat
 g <- graph.adjacency(adjmatrix = adj_mat, mode = 'undirected')
 
 
-plot(g)
+plot(g) # plots the graph
 
+# create a layout for the points
+?layout # to see other layout options for networks
 lay <- layout.auto(g)
 
-
+# add some arugment to make the graph nice looking
 plot(g, layout = lay, vertex.color = 'cyan', vertex.size = 24,
      edge.width = 2, vertex.label.color = 'black')
 
@@ -34,6 +46,7 @@ plot(g, layout = lay, vertex.color = 'cyan', vertex.size = 24,
 is.simple(g)
 
 
+# some function to examine graphs
 g %>% vcount
 g %>% ecount
 
@@ -41,14 +54,16 @@ vertex_attr(g)
 edge_attr(g)
 summary(g)
 
+# to set the color of nodes
 V(g)$color = 'red'
 vertex_attr(g)
 
+# plot.graph looks for argument 'color' attribute so no need to specify it
 plot(g, layout = lay, vertex.size = 24,
      edge.width = 2, vertex.label.color = 'black')
 
 
-# b
+# b self loop 
 
 adj_mat <- matrix(data = c(1,1,1,0,
                            1,0,1,0,
@@ -62,15 +77,19 @@ plot(g, layout = lay, vertex.color = 'cyan', vertex.size = 24,
      edge.width = 2, vertex.label.color = 'black')
 
 
-is.simple(g)
-is.loop(g)
+is.simple(g) # is the graph simply
+is.loop(g) # which links are loops?
+# change their color
 E(g)[is.loop(g)]$color = 'red'
 
-
+# plot them
 plot(g, layout = lay, vertex.color = 'cyan', vertex.size = 24,
      edge.width = 2, vertex.label.color = 'black')
 
-E(g)$color
+# ugh something went wrong
+
+E(g)$color # check the attr
+# ok we need a default value
 
 E(g)$color = 'grey'
 E(g)[is.loop(g)]$color = 'red'
@@ -78,9 +97,9 @@ E(g)[is.loop(g)]$color = 'red'
 
 plot(g, layout = lay, vertex.color = 'cyan', vertex.size = 24,
      edge.width = 2, vertex.label.color = 'black')
+# much better
 
-# c
-
+# c multigraph
 adj_mat <- matrix(data = c(0,2,1,0,
                            2,0,1,3,
                            1,1,0,0,
@@ -89,6 +108,7 @@ adj_mat <- matrix(data = c(0,2,1,0,
 
 g <- graph.adjacency(adjmatrix = adj_mat, mode = 'undirected')
 
+# higlight multi edges
 E(g)$color = 'grey'
 E(g)[is.multiple(g)]$color = 'red'
 
@@ -108,6 +128,8 @@ g <- graph.adjacency(adjmatrix = adj_mat, mode = 'directed')
 plot(g, layout = lay, vertex.color = 'cyan', vertex.size = 24,
      edge.width = 2, vertex.label.color = 'black')
 
+# use the from and to agrument with a vector sequence to find edges of 
+# interest (you also have the nei() for any type of neighbour)
 E(g)[from(2)]
 E(g)[to(2)]
 
@@ -119,7 +141,7 @@ E(g)[to(2)]$color = 'blue'
 plot(g, layout = lay, vertex.color = 'cyan', vertex.size = 24,
      edge.width = 2, vertex.label.color = 'black')
 
-# weighted
+# e weighted
 
 adj_mat <- matrix(data = c(0,2,0.5,0,
                            2,0,1,4,
@@ -131,11 +153,12 @@ g <- graph.adjacency(adjmatrix = adj_mat, mode = 'undirected', weighted = TRUE)
 
 g
 
+# E(g)$weight stores the link weights
 plot(g, layout = lay, vertex.color = 'cyan', vertex.size = 24,
      edge.width = E(g)$weight*3, vertex.label.color = 'black')
 
 
-# complete graph
+# f complete graph
 
 adj_mat <- matrix(data = c(0,1,1,1,
                            1,0,1,1,
@@ -152,7 +175,7 @@ plot(g, layout = lay, vertex.color = 'cyan', vertex.size = 24,
 
 # connected ---------------------------------------------------------------
 
-set.seed(1)
+set.seed(1) # see the random number so get the same plots
 adj_mat <- matrix(data = c(0,1,1,0,0,0,0,
                            1,0,1,0,0,0,0,
                            1,1,0,0,0,0,0,
@@ -163,55 +186,65 @@ adj_mat <- matrix(data = c(0,1,1,0,0,0,0,
                   nrow = 7, ncol = 7, byrow = TRUE)
 
 g <- graph.adjacency(adjmatrix = adj_mat, mode = 'undirected')
+
+# different component get different groups
 V(g)$color <- c(rep('cyan', 3), rep('red', 4))
 lay = layout.auto(g)
 plot(g, layout = lay, vertex.size = 24,
      edge.width = 2, vertex.label.color = 'black')
 
-
+# you can find the size of compents and which nodes are part of which group 
+# using the components function
 ?components
-cl <- components(g)
-V(g)$memb <- cl$membership
+cl <- components(g) # get and save components object
+V(g)$memb <- cl$membership # memembership to  the graph
 
-
-g <- add.edges(g, edges = c(2,4))
-plot(g, layout = lay, vertex.size = 24,
+# add an edge and plot again
+g2 <- add.edges(g, edges = c(2,4))
+plot(g2, layout = lay, vertex.size = 24,
      edge.width = 2, vertex.label.color = 'black')
 
-
+# one large happy component now 
+components(g2)
 
 # recovering graphs -------------------------------------------------------
 
-get.adjacency(g)
+get.adjacency(g) # return the sparse adj matrix
 
 get.adjacency(g, sparse = FALSE)
 
-get.adjedgelist(g)
+get.data.frame(g) # edge list as a data frame
 
-get.data.frame(g)
+# returns a list of nodal and edge attributes
 graph_list <- get.data.frame(g, what = 'both')
 graph_list$vertices
 graph_list$edges
 
+# readr package (included in the tidyverse) contain alot of useful function
+?write_csv
+
 
 # degree of a network -----------------------------------------------------
 
+# some data to play with
 ?igraphdata
 data(package = 'igraphdata')
-data(karate)
+data(karate) # load karate dataset into memory
 
 plot(karate, vertex.label = NA, 
      vertex.color = 'red', vertex.size = 17, edge.color = 'black')
 
 
+# how to find the degree of a node
 ?degree
-deg_df <- degree(karate) %>% enframe() %>% 
-  rename(degree = value)
+deg_vec <- degree(karate)  
+deg_df <- tibble(name = names(deg_vec), degree = deg_vec)
 
-deg_dist <- deg_df %>% 
-  count(degree) %>%
-  mutate(prob = n/(sum(n)))
+deg_dist <- deg_df %>% # take the deg_df
+  count(degree) %>% # count the number of node with degree x
+  mutate(prob = n/(sum(n))) # find the probablity 
 
+# plot the degree dist
 ggplot(data = deg_dist, aes(x = degree, y = prob)) +
   geom_line() +
   geom_point(size = 6, color = 'steelblue') +
@@ -238,16 +271,8 @@ E(g)[is.mutual(g)]$color = 'red'
 plot(g, layout = lay, vertex.color = 'cyan', vertex.size = 24,
      edge.width = 2, vertex.label.color = 'black')
 
-g_sub <- subgraph.edges(g, E(g)[is.mutual(g)], delete.vertices = FALSE)
-plot(g_sub, layout = lay, vertex.color = 'cyan', vertex.size = 24,
-     edge.width = 2, vertex.label.color = 'black')
+g_sub <- subgraph.edges(g, E(g)[is.mutual(g)], delete.vertices = T)
 
-g_sub <- subgraph.edges(g, E(g)[is.mutual(g)], delete.vertices = TRUE)
-plot(g_sub, layout = lay, vertex.color = 'cyan', vertex.size = 24,
-     edge.width = 2, vertex.label.color = 'black')
-
-
-g_sub <- subgraph.edges(g, E(g)[is.mutual(g)], delete.vertices = TRUE)
 plot(g_sub, vertex.color = 'cyan', vertex.size = 24,
      edge.width = 2, vertex.label.color = 'black')
 
@@ -266,23 +291,27 @@ plot(g)
 
 transitivity(g)
 
+# calculate local trans and save to tibble, arrange
 V(g)$trans <- transitivity(graph = g, type = 'local')
-
 g_df <- tibble(names = V(g)$name, trans = V(g)$trans)
+g_df <- g_df %>% arrange(desc(trans))
 
-g_df <- g_df %>% 
-  arrange(desc(trans))
-
+# plots the density
 ggplot(g_df, aes(x = trans)) +
   geom_density(fill = 'steelblue')
 
+# ugh ugly...
+
+# change the smoothing
+ggplot(g_df, aes(x = trans)) +
+  geom_density(adjust = 0.1, fill = 'steelblue')
+
+# try a histogram
 ggplot(g_df, aes(x = trans)) +
   geom_histogram(fill = 'steelblue')
 
 
 # graph itterators --------------------------------------------------------
-
-
 
 # the mode argument of the nei() function
 g <- graph( c(1,2, 2,3, 2,4, 4,2) )
@@ -292,10 +321,10 @@ V(g)[ nei( c(1,3), "in") ]
 V(g)[ nei( c(1,3), "out") ]
 
 # operators for edge sequences
-g <- barabasi.game(100, power=0.3)
-E(g)[ 0:2 %--% 1:5 ]
-E(g)[ 0:2 %->% 1:5 ]
-E(g)[ 0:2 %<-% 1:5 ]
+g <- erdos.renyi.game(100, p=0.3,directed = TRUE)
+E(g)[ 0:2 %--% 1:5 ] # all links between nodes 0:2 and 1:5
+E(g)[ 0:2 %->% 1:5 ] # all links from 0:2 to 1:5
+E(g)[ 0:2 %<-% 1:5 ] # all links to 0:2 from 1:5
 
 
 # now for a little more praticle example ----------------------------------
@@ -304,7 +333,7 @@ g_er = erdos.renyi.game(n = 250, p.or.m = .002)
 
 l = layout.auto(g_er)
 # plot(g_er, vertex.label = "", vertex.color = "red", layout = l)
-cl = clusters(g_er)
+cl = components(g_er)
 names(cl)
 
 cl$membership
@@ -312,51 +341,94 @@ cl$csize
 cl$csize %>% table
 cl$no
 
-plot(cluster.distribution(g_er), col = "steelblue", type = "b", pch = 20)
 
 
+# where does the graph becomes one component? 
 M = 100
-no_nodes = 500
-p = seq(from = 0.00001, to = 0.001, by = 0.00005)
-MC_clustersize = matrix(data = NA, nrow = M, ncol = length(p))
+no_nodes = 1000
+p = seq(from = 0.0001, to = 0.005, by = 0.0001)
 
 MC_comp_size <- tibble(
-  p = seq(from = 0.00001, to = 0.001, by = 0.00005) %>% 
-    rep(each = M), 
-  size = NA
+  p = p %>% rep(each = M), # take the seq and repeat each element M times
+  # as we want to average over several realisation of 
+  size = NA # were we are going to save the results
     )
 
-for(i in 1:nrow(MC_comp_size)){
+for(i in 1:nrow(MC_comp_size)){ # for each row in the data
+  # create a er network with parameter from that row
   g_temp = erdos.renyi.game(n = no_nodes, p.or.m = MC_comp_size$p[i])
+  # what is the larges component size
   MC_comp_size$size[i] = max(components(g_temp)$csize)
 }
   
-comp_summary <- 
-  MC_comp_size %>% group_by(p) %>% 
+comp_summary <- # find summarys from the simulations
+  MC_comp_size %>% group_by(p) %>% # group by the parameters
   summarise(
-    mean_size = mean(size),
+    mean_size = mean(size), # calculate the mean and standard dev
     sd_size = sd(size), 
-    sd_size_p = mean_size + sd_size,
+    sd_size_p = mean_size + sd_size, # error bars
     sd_size_m = mean_size - sd_size,
-    size_025 = quantile(size, 0.025),
-    size_975 = quantile(size, 0.975))
+    size_025 = quantile(size, 0.025), # I prefer to plot percentiles of the 
+    size_975 = quantile(size, 0.975)) # distribution
 
-
-ggplot(comp_summary, aes(x = p, y = mean_size)) + 
-  geom_ribbon(aes(ymin = size_025, ymax = size_975), fill = "red", alpha=0.5) + 
-  geom_point() +
-  geom_line()
-  
+comp_summary
 
 ggplot(comp_summary, aes(x = p, y = mean_size)) + 
   geom_point() +
   geom_line() + 
-  geom_ribbon(aes(ymin = size_025, ymax = size_975), fill = "red", alpha=0.5)
+  geom_ribbon(aes(ymin = size_025, ymax = size_975), fill = "grey", alpha=0.5)
+
+# small worlds model ------------------------------------------------------
+
+?sample_smallworld
+g <- sample_smallworld(1, 25, 3, 0)
+plot(g)
+mean_distance(g)
+
+g <- sample_smallworld(1, 25, 3, 0.1)
+plot(g)
+mean_distance(g)
 
 
+# network parameters
+M = 50
+no_nodes = 1000
+# where are we going to search over?
+p = seq(from = 0.000, to = 0.01, by = 0.0005)
+
+# tibble to store data
+smallworld_df <- tibble(
+  p = p %>% rep(each = M), # how many time are we going to try each parameters? 
+  mean_distance = NA # same the average distance
+)
+
+for(i in 1:nrow(smallworld_df)){
+  # generate the graph and store the results
+  g_temp = sample_smallworld(1, no_nodes, 4, smallworld_df$p[i])
+  smallworld_df$mean_distance[i] <- mean_distance(g_temp)
+  
+  if(i %% 100 == 0){ # print progress every 100 steps
+    print(i/nrow(smallworld_df))
+  }
+  
+}
+
+# calculate summary statistics
+comp_summary <- 
+  smallworld_df %>% group_by(p) %>% 
+  summarise(
+    mean_d = mean(mean_distance),
+    sd_distance = sd(mean_distance), 
+    sd_distance_p = mean_d + sd_distance,
+    sd_distance_m = mean_d - sd_distance,
+    size_025 = quantile(mean_distance, 0.025),
+    size_975 = quantile(mean_distance, 0.975))
+
+# graph the results
+ggplot(comp_summary, aes(x = p, y = mean_d)) + 
+  geom_point() +
+  geom_line() + 
+  geom_ribbon(aes(ymin = size_025, ymax = size_975), fill = "grey", alpha=0.5)
 
 
-# rm(list = ls())
-# gc()
-
-
+# what do you note? 
