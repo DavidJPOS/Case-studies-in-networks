@@ -12,6 +12,7 @@
   - The author [Daniel Gayo-Avello](https://scholar.google.com/citations?user=bdCROlQAAAAJ&hl=en) has a load of other interesting papers on the subject.
 - Heart and soul: Sentiment strength detection in the social web with sentistrength [here](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=9&cad=rja&uact=8&ved=2ahUKEwj3ho2L3_blAhXcQkEAHRQrDFwQFjAIegQICBAC&url=http%3A%2F%2Fsentistrength.wlv.ac.uk%2Fdocumentation%2FSentiStrengthChapter.pdf&usg=AOvVaw1c8oFIh5RJja9q4Vy64CZU)
 - An Introduction to ROC Analysis [here](http://people.inf.elte.hu/kiss/11dwhdm/roc.pdf). 
+- The Structural Virality of Online Diffusion [here](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=2&cad=rja&uact=8&ved=2ahUKEwia0J6LnIjmAhWUUBUIHcLyDSgQFjABegQIBhAC&url=https%3A%2F%2F5harad.com%2Fpapers%2Ftwiral.pdf&usg=AOvVaw2Auo-4bqKzzphRdRG5uo6t).
 
 ## Books
 
