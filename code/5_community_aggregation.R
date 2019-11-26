@@ -1,7 +1,7 @@
 
 
 # load packages and sort data ---------------------------------------------
-
+rm(list = ls())
 # install.packages('deldir') # if you have problem later this might be missing
 
 library(ggforce)
@@ -109,6 +109,7 @@ ggplot(wss_df, aes(x = k, y = wss)) +
 #..... 2 seems like a good bet.
 
 # find the clusters for K = 2
+set.seed(1)
 K = 2
 km = kmeans(cluster_sent[, -1], centers = K)
 km
@@ -148,6 +149,7 @@ name_to <- V(g_mention)$name %>% enframe(name = NULL) %>%
   rename(name = value)
 V(g_mention)$real <- left_join(name_to, true_labels, by = 'name')$real
 
+table(V(g_mention)$real)
 table(V(g_mention)$real)
 
 # break down the values by real and the predicted class
