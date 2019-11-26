@@ -2,6 +2,8 @@
 
 # load packages and sort data ---------------------------------------------
 
+# install.packages('deldir') # if you have problem later this might be missing
+
 library(ggforce)
 
 library(igraph)

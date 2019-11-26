@@ -378,6 +378,10 @@ ggplot(comp_summary, aes(x = p, y = mean_size)) +
   geom_line() + 
   geom_ribbon(aes(ymin = size_025, ymax = size_975), fill = "grey", alpha=0.5)
 
+##############
+# calculate the proportion of time of time that the whole network was connected
+# and plot the results
+
 # small worlds model ------------------------------------------------------
 
 ?sample_smallworld
@@ -431,4 +435,5 @@ ggplot(comp_summary, aes(x = p, y = mean_d)) +
   geom_ribbon(aes(ymin = size_025, ymax = size_975), fill = "grey", alpha=0.5)
 
 
-# what do you note? 
+################
+# calculate the gobal clustering coefficent and observe how it varies with p 

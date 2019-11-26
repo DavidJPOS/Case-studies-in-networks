@@ -111,6 +111,9 @@ p1 <- ggplot(shuffle_test_df, aes(x = sim_cor)) +
   geom_vline(xintercept = emp_corr, linetype = 'dashed', col = 'red', size = 2)
 p1
 
+##########
+# change the above to include a density plots instead of a histogram
+
 # ok how about the connectivity patterns ?
 
 # nodal connectivity properies --------------------------------------------
@@ -159,9 +162,12 @@ for(i in 1:M){
     print(i/nrow(connectivity_df))
   }
 }
+
 connectivity_df
+
 # its easier to plot in ggplot if the data is in a long format
-?pivot_longer
+?pivot_longer # this is a handy way to reformat your code
+
 connectivity_df_long <- connectivity_df %>% 
   pivot_longer(-run_id, names_to = 'con_type', values_to = 'frac_con') %>% 
   arrange(con_type)
@@ -171,7 +177,7 @@ inter <- connectivity_df_long %>% group_by(con_type) %>%
   summarise(frac_conn_025 = quantile(frac_con, 0.025),
             frac_conn_975 = quantile(frac_con, 0.975)
             ) %>% arrange(con_type)
-
+inter
 # does the obs values fall inside the interval?
 emp_connectivity$inside <- 
   emp_connectivity$frac_con >= inter$frac_conn_025 & 
@@ -188,12 +194,14 @@ p2 <- ggplot(data = connectivity_df_long, aes(x = con_type, y = frac_con)) +
              aes(x = con_type, y = frac_con, size = 2, color = color_point)) + 
   scale_color_manual(values = emp_connectivity$color_point)
 
-
-
 pg_1 <- plot_grid(p1, p2, labels = c('A','B'))
 pg_1
 
 ggsave(filename = './randomisation_plots.png')
 
 
+##############
+# include the 'undefined' group in you analysis [those where V(g_sim)$type == 0]
+
+# try the analysis for the directed case (just between the positive and negative sides)
   

@@ -15,8 +15,6 @@ library(viridis)
 
 # create tables and plots -------------------------------------------------
 
-# mention_df <- read_csv(file = './data/cleaned_mention_edges.csv')
-# follower_df <- read_csv(file = './data/cleaned_follower_edges.csv')
 
 # set you working dir
 setwd('./')
@@ -210,7 +208,6 @@ p9 <- ggplot(d_dist_all, aes(x = degree, y = p, color = type, shape = type)) +
 
 
 p10 <- d_all %>% 
-  # filter(cluster_coef > 0.01) %>% 
   ggplot(aes(x = cluster_coef, color = type, fill = type)) + 
   geom_density() + 
   scale_x_log10() +
@@ -225,6 +222,8 @@ pg3
 ggsave(filename = './network_generation_comp.png', plot = pg3)
 
 
+###########
+# How much does the distribution of shortest paths vary between the different clusters?
 
 
 
