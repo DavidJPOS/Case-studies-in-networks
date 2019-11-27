@@ -19,6 +19,7 @@
 - Free online version of Network Science by Albert-László Barabási [here](http://networksciencebook.com/chapter/1).
 - Free online version of R for Data Science by Garrett Grolemund and Hadley Wickham [here](https://r4ds.had.co.nz/).
 - Free online version of Text Mining with R by Julia Silge and David Robinson [here](https://www.tidytextmining.com/).
+- Free online version of R Cookbook by James (JD) Long and Paul Teetor [here](https://rc2e.com/).
 - Free version of The Elements of Statistical Learning by Trevor Hastie, Robert Tibshirani and Jerome Friedman [here](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=2&cad=rja&uact=8&ved=2ahUKEwja_NKliojmAhXznFwKHYU-DAgQFjABegQIBBAC&url=https%3A%2F%2Fweb.stanford.edu%2F~hastie%2FPapers%2FESLII.pdf&usg=AOvVaw25QCy16hNG1RTjwQm4qzz8).
 - Free version of Computer Age Statistical Inference by Trevor Hastie and Bradley Efron [here](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=3&cad=rja&uact=8&ved=2ahUKEwiG2rbKiYjmAhWoQkEAHXm-CPEQFjACegQIBBAC&url=https%3A%2F%2Fweb.stanford.edu%2F~hastie%2FCASI_files%2FPDF%2Fcasi.pdf&usg=AOvVaw35RkePmQDVbV9mFQfiCn73).
 <!--- - Old version of Networks by Mark Newman [here]() --->
