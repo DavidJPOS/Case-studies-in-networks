@@ -46,4 +46,4 @@
 ## Other useful links
 
 - Automatically generate latex tables and formate [here](https://www.tablesgenerator.com/latex_tables).
-- Gephi, useful for plotting large networks [here](https://gephi.org/users/download/)
+- Gephi, useful for plotting large networks [here](https://gephi.org/users/download/).
