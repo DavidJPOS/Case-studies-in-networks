@@ -1,4 +1,9 @@
-
+###############################################################################################
+## Project: Case studies in networks
+## Script purpose: introduction to igraph
+## Date: 13-08-2021
+## Author: David JP O'Sullivan
+###############################################################################################
 
 # load libraries that we are going to use ---------------------------------
 rm(list = ls()) # ls() lists all the objects in name space
@@ -47,6 +52,9 @@ is.simple(g)
 
 
 # some function to examine graphs
+vcount(g)
+ecount(g)
+
 g %>% vcount
 g %>% ecount
 
@@ -220,6 +228,10 @@ graph_list <- get.data.frame(g, what = 'both')
 graph_list$vertices
 graph_list$edges
 
+get.data.frame(g, what = 'vertices')
+get.data.frame(g, what = 'edges')
+
+
 # readr package (included in the tidyverse) contain alot of useful function
 ?write_csv
 
@@ -237,8 +249,10 @@ plot(karate, vertex.label = NA,
 
 # how to find the degree of a node
 ?degree
-deg_vec <- degree(karate)  
-deg_df <- tibble(name = names(deg_vec), degree = deg_vec)
+
+degree(karate)
+V(karate)$degree <- degree(karate)
+deg_df <- karate %>% get.data.frame(what = 'vertices') %>% as_tibble
 
 deg_dist <- deg_df %>% # take the deg_df
   count(degree) %>% # count the number of node with degree x
@@ -246,11 +260,14 @@ deg_dist <- deg_df %>% # take the deg_df
 
 # plot the degree dist
 ggplot(data = deg_dist, aes(x = degree, y = prob)) +
-  geom_line() +
   geom_point(size = 6, color = 'steelblue') +
   xlab('Degree') + ylab('Prob of degree')
 
-
+# add a line from the point to the z-axis
+ggplot(data = deg_dist, aes(x = degree, y = prob)) +
+  geom_segment(mapping = aes(xend = degree, yend = rep(0,nrow(deg_dist)))) + 
+  geom_point(size = 6, color = 'steelblue') +
+  xlab('Degree') + ylab('Prob of degree')
 
 # # mutual links ----------------------------------------------------------
 
@@ -276,20 +293,17 @@ g_sub <- subgraph.edges(g, E(g)[is.mutual(g)], delete.vertices = T)
 plot(g_sub, vertex.color = 'cyan', vertex.size = 24,
      edge.width = 2, vertex.label.color = 'black')
 
-
-png('./mutual_links.png', bg = 'transparent')
+png('.plots/sec_1_mutual_links.png', bg = 'transparent')
 plot(g_sub, vertex.color = 'cyan', vertex.size = 24,
      edge.width = 2, vertex.label.color = 'black')
 dev.off()
 
 
-# clustering coefficent ---------------------------------------------------
+# clustering coefficient ---------------------------------------------------
 
 g <- karate
-
-plot(g)
-
-transitivity(g)
+plot(g) 
+transitivity(g) # this is the gobal clustering coefficient
 
 # calculate local trans and save to tibble, arrange
 V(g)$trans <- transitivity(graph = g, type = 'local')
@@ -308,8 +322,7 @@ ggplot(g_df, aes(x = trans)) +
 
 # try a histogram
 ggplot(g_df, aes(x = trans)) +
-  geom_histogram(fill = 'steelblue')
-
+  geom_histogram(fill = 'steelblue', color = 'black')
 
 # graph itterators --------------------------------------------------------
 
@@ -327,7 +340,9 @@ E(g)[ 0:2 %->% 1:5 ] # all links from 0:2 to 1:5
 E(g)[ 0:2 %<-% 1:5 ] # all links to 0:2 from 1:5
 
 
-# now for a little more praticle example ----------------------------------
+# now for a little more practice example ----------------------------------
+sample_gnp()
+erdos.renyi.game
 
 g_er = erdos.renyi.game(n = 250, p.or.m = .002)
 
@@ -344,9 +359,11 @@ cl$no
 
 
 # where does the graph becomes one component? 
-M = 100
+M = 500
 no_nodes = 1000
 p = seq(from = 0.0001, to = 0.005, by = 0.0001)
+
+p[which(no_nodes * p >= 1)][1]
 
 MC_comp_size <- tibble(
   p = p %>% rep(each = M), # take the seq and repeat each element M times
@@ -374,66 +391,10 @@ comp_summary <- # find summarys from the simulations
 comp_summary
 
 ggplot(comp_summary, aes(x = p, y = mean_size)) + 
-  geom_point() +
-  geom_line() + 
-  geom_ribbon(aes(ymin = size_025, ymax = size_975), fill = "grey", alpha=0.5)
-
-##############
-# calculate the proportion of time of time that the whole network was connected
-# and plot the results
-
-# small worlds model ------------------------------------------------------
-
-?sample_smallworld
-g <- sample_smallworld(1, 25, 3, 0)
-plot(g)
-mean_distance(g)
-
-g <- sample_smallworld(1, 25, 3, 0.1)
-plot(g)
-mean_distance(g)
-
-
-# network parameters
-M = 50
-no_nodes = 1000
-# where are we going to search over?
-p = seq(from = 0.000, to = 0.01, by = 0.0005)
-
-# tibble to store data
-smallworld_df <- tibble(
-  p = p %>% rep(each = M), # how many time are we going to try each parameters? 
-  mean_distance = NA # same the average distance
-)
-
-for(i in 1:nrow(smallworld_df)){
-  # generate the graph and store the results
-  g_temp = sample_smallworld(1, no_nodes, 4, smallworld_df$p[i])
-  smallworld_df$mean_distance[i] <- mean_distance(g_temp)
-  
-  if(i %% 100 == 0){ # print progress every 100 steps
-    print(i/nrow(smallworld_df))
-  }
-  
-}
-
-# calculate summary statistics
-comp_summary <- 
-  smallworld_df %>% group_by(p) %>% 
-  summarise(
-    mean_d = mean(mean_distance),
-    sd_distance = sd(mean_distance), 
-    sd_distance_p = mean_d + sd_distance,
-    sd_distance_m = mean_d - sd_distance,
-    size_025 = quantile(mean_distance, 0.025),
-    size_975 = quantile(mean_distance, 0.975))
-
-# graph the results
-ggplot(comp_summary, aes(x = p, y = mean_d)) + 
+  geom_vline(xintercept = p[which(no_nodes * p >= 1)][1], color = 'red', linetype = 2, size = 1) + 
   geom_point() +
   geom_line() + 
   geom_ribbon(aes(ymin = size_025, ymax = size_975), fill = "grey", alpha=0.5)
 
 
-################
-# calculate the gobal clustering coefficent and observe how it varies with p 
+

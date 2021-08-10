@@ -1,3 +1,9 @@
+###############################################################################################
+## Project: Case studies in networks
+## Script purpose: descriptive of networks
+## Date: 13-08-2021
+## Author: David JP O'Sullivan
+###############################################################################################
 
 # packages ----------------------------------------------------------------
 
@@ -11,7 +17,6 @@ library(cowplot)
 theme_set(theme_cowplot())
 library(knitr)
 
-library(viridis)
 
 # create tables and plots -------------------------------------------------
 
@@ -70,13 +75,12 @@ pg1
 
 # compute the table of statistics and descriptive graphs                     
 
-
 p3 <- ggplot(mention_df, aes(x = sent_diff)) + 
   geom_bar(fill = 'steelblue')
 
 
 # saving plots
-ggsave(filename = 'fig1.png', plot = pg1)
+ggsave(filename = './plots/fig1.png', plot = pg1)
 
 
 
@@ -121,7 +125,7 @@ knitr::kable(stats,format = 'latex') # generate an latex table
 # https://www.tablesgenerator.com/latex_tables
 
 
-# local properiest of the networks ----------------------------------------
+# local properties of the networks ----------------------------------------
 
 # calculate and save the local trans
 V(g_mention)$trans <- transitivity(g_mention, type = 'local')
@@ -201,20 +205,23 @@ d_dist_all <- d_all %>% group_by(type) %>%
   ungroup() 
 
 p9 <- ggplot(d_dist_all, aes(x = degree, y = p, color = type, shape = type)) + 
-  geom_point(size = 2) + 
-  scale_color_viridis(discrete = TRUE) + 
-  theme(legend.position = "none") + 
-  xlab('Degree')
+  geom_point(size = 3) + 
+  xlab('Degree') 
+  # scale_color_viridis_d() 
 
+ggplot(d_dist_all, aes(x = degree, y = p, color = type, shape = type)) + 
+  geom_jitter(size = 3) + 
+  geom_line() + 
+  theme(legend.position = "none") +
+  xlab('Degree') 
 
 p10 <- d_all %>% 
   ggplot(aes(x = cluster_coef, color = type, fill = type)) + 
-  geom_density() + 
-  scale_x_log10() +
-  # scale_y_log10() +
-  scale_color_viridis(discrete = TRUE) + 
-  scale_fill_viridis(discrete = TRUE, alpha = 0.7) + 
-  xlab('Clustering Coefficient')
+  geom_density(alpha = 0.7, color = 'black') + 
+  # scale_x_log10() +
+  xlab('Clustering Coefficient') + 
+  scale_fill_viridis_d()
+  
 
 pg3 <- plot_grid(p9, p10, labels = c('A','B'))
 pg3
@@ -222,9 +229,65 @@ pg3
 ggsave(filename = './network_generation_comp.png', plot = pg3)
 
 
-###########
-# How much does the distribution of shortest paths vary between the different clusters?
+# small worlds model ------------------------------------------------------
 
+?sample_smallworld
+g <- sample_smallworld(1, 25, 3, 0)
+plot(g)
+mean_distance(g)
+
+g <- sample_smallworld(1, 25, 3, 0.025)
+plot(g)
+mean_distance(g)
+
+g <- sample_smallworld(1, 25, 3, 0.001)
+plot(g)
+mean_distance(g)
+
+
+
+# network parameters
+M = 50
+no_nodes = 1000
+# where are we going to search over?
+p = seq(from = 0.000, to = 0.01, by = 0.0005)
+
+# tibble to store data
+smallworld_df <- tibble(
+  p = p %>% rep(each = M), # how many time are we going to try each parameters? 
+  mean_distance = NA # same the average distance
+)
+
+for(i in 1:nrow(smallworld_df)){
+  # generate the graph and store the results
+  g_temp = sample_smallworld(1, no_nodes, 4, smallworld_df$p[i])
+  smallworld_df$mean_distance[i] <- mean_distance(g_temp)
+  
+  if(i %% 100 == 0){ # print progress every 100 steps
+    print(i/nrow(smallworld_df))
+  }
+}
+
+# calculate summary statistics
+comp_summary <- 
+  smallworld_df %>% group_by(p) %>% 
+  summarise(
+    mean_d = mean(mean_distance),
+    sd_distance = sd(mean_distance), 
+    sd_distance_p = mean_d + sd_distance,
+    sd_distance_m = mean_d - sd_distance,
+    size_025 = quantile(mean_distance, 0.025),
+    size_975 = quantile(mean_distance, 0.975))
+
+# graph the results
+ggplot(comp_summary, aes(x = p, y = mean_d)) + 
+  geom_ribbon(aes(ymin = size_025, ymax = size_975), fill = "grey", alpha=0.5) + 
+  geom_point() +
+  geom_line() 
+
+
+################
+# calculate the gobal clustering coefficent and observe how it varies with p 
 
 
 

@@ -68,9 +68,11 @@ res_summary <- res %>% group_by(p_in) %>%
   )
 
 ggplot(res_summary, aes(x = p_in, y = mean_acc)) + 
+  geom_point(data = res, aes(x = p_in, y = acc), color = 'grey') + 
   geom_ribbon(aes(ymin = acc_025, ymax = acc_975), fill = "red", alpha=0.5) + 
   geom_point() +
-  geom_line()
+  geom_line() 
+  
   
 
 ggplot(res_summary, aes(x = p_in, y = mean_bal_acc)) + 

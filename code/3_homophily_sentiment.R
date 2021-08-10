@@ -1,3 +1,9 @@
+###############################################################################################
+## Project: case studies in networks
+## Script purpose: explore igraphs functions
+## Date: 13-08-2021
+## Author: David JP O'Sullivan
+############################################################################################### 
 
 # packages ----------------------------------------------------------------
 
@@ -11,15 +17,8 @@ library(cowplot)
 theme_set(theme_cowplot())
 library(knitr)
 
-library(viridis)
-
 mention_df <- read_csv(file = './data/sim_mention_df.csv')
 follower_df <- read_csv(file = './data/sim_follower_df.csv')
-
-mention_df <- mention_df %>% 
-  mutate(unix_time = created_at %>% as.POSIXct,
-         bined_time15min = cut(unix_time, breaks="15 min", labels=FALSE),
-         bined_time = cut(unix_time, breaks="1 day", labels=FALSE))
 
 g_mention <- graph.data.frame(mention_df)
 g_follower <- graph.data.frame(follower_df)
@@ -111,10 +110,6 @@ p1 <- ggplot(shuffle_test_df, aes(x = sim_cor)) +
   geom_vline(xintercept = emp_corr, linetype = 'dashed', col = 'red', size = 2)
 p1
 
-##########
-# change the above to include a density plots instead of a histogram
-
-# ok how about the connectivity patterns ?
 
 # nodal connectivity properies --------------------------------------------
 
@@ -200,8 +195,9 @@ pg_1
 ggsave(filename = './randomisation_plots.png')
 
 
-##############
-# include the 'undefined' group in you analysis [those where V(g_sim)$type == 0]
 
-# try the analysis for the directed case (just between the positive and negative sides)
-  
+
+
+
+
+
