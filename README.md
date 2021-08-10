@@ -45,5 +45,6 @@
 
 ## Other useful links
 
+- Build regular expressions online [[here](https://regexr.com/)]
 - Automatically generate latex tables and format [[here](https://www.tablesgenerator.com/latex_tables)].
 - Gephi, useful for plotting large networks [[here](https://gephi.org/users/download/)].
