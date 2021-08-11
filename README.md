@@ -1,5 +1,18 @@
 # Case Studies In Networks
 
+Welcome to the 'case studies in networks' GitHub page. Here you will find links to resources for this course --- links to papers I mention, helpful books and software packages. In addition, you will find the slides in the main folder on the morning of the course.
+
+The coding content of this will be done through R. Before starting the course; it would be good to download the [R](https://cran.r-project.org/bin/windows/base/) and [Rstudio](https://www.rstudio.com/products/rstudio/download/). I have provided a video on setting up R and Rstudio here to make things a little easier. 
+
+This GitHub repository can be downloaded as a zip file to have all the content in one place by clicking on the green 'code' button and then selecting 'download zip'. I will be updating the code and slides before the course, so maybe leave this step until the morning of the course.
+
+Talk soon. 
+
+## Setup video & slides
+
+- The software setup video can be found [here]().
+- The slide deck is in the main folder.
+
 ## Papers
 
 - Integrating sentiment and social structure to determine preference alignments: the Irish Marriage Referendum [[here](https://royalsocietypublishing.org/doi/full/10.1098/rsos.170154)].
@@ -28,20 +41,12 @@
 
 ## Tutorials and useful links for R
 
-- Online IDE for R [[here](https://rstudio.cloud)].
-- Introduction: how to use R for network science [[here](https://kateto.net/networks-r-igraph)].
 - You can download R from [[here](https://www.r-project.org/)].
 - RStudios is a powerful IDE for R [[here](https://rstudio.com/products/rstudio/download/)].
+- Online IDE for R [[here](https://rstudio.cloud)].
+- Introduction: how to use R for network science [[here](https://kateto.net/networks-r-igraph)].
 - Blog on how to collected data from Twitter [[here](https://ecmiindmath.org/2015/12/21/hunting-for-ground-truths/)].
 - ggplot function references [[here](https://ggplot2.tidyverse.org/reference/)].
-
-## Interactive Tutorials in R
-- Interative introduction to R [[here](https://davidjpos.shinyapps.io/section_1/)].
-- Interative introduction to the tidyverse [[here](https://davidjpos.shinyapps.io/section_2/)].
-
-## Slides
-
-- The slide deck is in the main folder.
 
 ## Other useful links
 
