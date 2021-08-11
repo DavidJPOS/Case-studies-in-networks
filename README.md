@@ -2,7 +2,7 @@
 
 Welcome to the 'case studies in networks' GitHub page. Here you will find links to resources for this course --- links to papers I mention, helpful books and software packages. In addition, you will find the slides in the main folder on the morning of the course.
 
-The coding content of this will be done through R. Before starting the course; it would be good to download the [R](https://cran.r-project.org/) and [Rstudio](https://www.rstudio.com/products/rstudio/download/). I have provided a video on setting up R and Rstudio here to make things a little easier. 
+The coding content of this will be done through R. Before starting the course; it would be good to download the [R](https://cran.r-project.org/) and [Rstudio](https://www.rstudio.com/products/rstudio/download/). I have provided a video on setting up R and Rstudio here to make things a little easier [[here](https://youtu.be/KBgobghc-_4)]. 
 
 This GitHub repository can be downloaded as a zip file to have all the content in one place by clicking on the green 'code' button and then selecting 'download zip'. I will be updating the code and slides before the course, so maybe leave this step until the morning of the course.
 
