@@ -195,6 +195,15 @@ pg_1
 ggsave(filename = './randomisation_plots.png')
 
 
+# EX  ---------------------------------------------------------------------
+
+# Q Do the same connectivity analysis except for the follower graph
+
+# The tricky part is trying to map the sentiment between nodes on both
+# graphs
+
+
+
 
 
 

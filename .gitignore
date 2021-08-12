@@ -37,6 +37,7 @@ rsconnect/
 
 # folders to ignore
 /extra-files
+/code/extra-code
 
 
 # files to ignore

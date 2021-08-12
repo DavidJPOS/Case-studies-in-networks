@@ -218,9 +218,7 @@ components(g2)
 # recovering graphs -------------------------------------------------------
 
 get.adjacency(g) # return the sparse adj matrix
-
 get.adjacency(g, sparse = FALSE)
-
 get.data.frame(g) # edge list as a data frame
 
 # returns a list of nodal and edge attributes
@@ -230,7 +228,6 @@ graph_list$edges
 
 get.data.frame(g, what = 'vertices')
 get.data.frame(g, what = 'edges')
-
 
 # readr package (included in the tidyverse) contain alot of useful function
 ?write_csv
@@ -269,6 +266,24 @@ ggplot(data = deg_dist, aes(x = degree, y = prob)) +
   geom_point(size = 6, color = 'steelblue') +
   xlab('Degree') + ylab('Prob of degree')
 
+
+# EX ----------------------------------------------------------------------
+
+data(UKfaculty) # load  dataset into memory
+
+# what type of network is this? Directed? Undirected? Does it contain multi-edges? 
+UKfaculty # this network is a little to large to plot
+
+# Q: first plot the network
+# plot() function might be useful here...
+
+# Q: does it look fully connected? Tightly packed? Later on how can we measure this?
+
+## comment: its looks fully connected and tightly packaged. But the layout also
+## could fool us. Later on we will measure the average shortest path length
+## to get a feel for the network
+
+
 # # mutual links ----------------------------------------------------------
 
 adj_mat <- matrix(data = c(0,1,1,1,
@@ -299,6 +314,16 @@ plot(g_sub, vertex.color = 'cyan', vertex.size = 24,
 dev.off()
 
 
+
+# EX  ---------------------------------------------------------------------
+
+# using UKfaculty
+# Q: from the network calculate the number of edges
+# Q: number and fraction of multiple, mutual and self links.
+
+# comment: 
+
+
 # clustering coefficient ---------------------------------------------------
 
 g <- karate
@@ -324,6 +349,28 @@ ggplot(g_df, aes(x = trans)) +
 ggplot(g_df, aes(x = trans)) +
   geom_histogram(fill = 'steelblue', color = 'black')
 
+
+# EX ----------------------------------------------------------------------
+
+
+# transitivity ------------------------------------------------------------
+# Q: what is the transitivity on the network, both gobal and local (plot the local 
+# transitivity)
+
+# things that will be useful
+# ?transitivity()
+# maybe get.data.frame
+# ggplot
+# + xlab('local transitivity') can be added, to a plot to give a label
+
+
+# one way to get transitivity in a plottable form in ggplot is by: 
+
+
+
+# Q: what node have a clustering coefficient of 1? 
+
+
 # graph itterators --------------------------------------------------------
 
 # the mode argument of the nei() function
@@ -340,61 +387,25 @@ E(g)[ 0:2 %->% 1:5 ] # all links from 0:2 to 1:5
 E(g)[ 0:2 %<-% 1:5 ] # all links to 0:2 from 1:5
 
 
-# now for a little more practice example ----------------------------------
-sample_gnp()
-erdos.renyi.game
-
-g_er = erdos.renyi.game(n = 250, p.or.m = .002)
-
-l = layout.auto(g_er)
-# plot(g_er, vertex.label = "", vertex.color = "red", layout = l)
-cl = components(g_er)
-names(cl)
-
-cl$membership
-cl$csize
-cl$csize %>% table
-cl$no
+# EX ----------------------------------------------------------------------
 
 
+# Q: plot the in degree distribution
 
-# where does the graph becomes one component? 
-M = 500
-no_nodes = 1000
-p = seq(from = 0.0001, to = 0.005, by = 0.0001)
+# Q: add the out distriubtion to hte plots (you can just add a layer with the new data)
 
-p[which(no_nodes * p >= 1)][1]
 
-MC_comp_size <- tibble(
-  p = p %>% rep(each = M), # take the seq and repeat each element M times
-  # as we want to average over several realisation of 
-  size = NA # were we are going to save the results
-    )
+# a more compact way (and advanced) of doing this is putting everything in one data frame
+# to do this we want to create a longer version of degree_df first (by using pivot_longer), then by working on 
+# degree's that are in or out (via group_by) computing the distribution
 
-for(i in 1:nrow(MC_comp_size)){ # for each row in the data
-  # create a er network with parameter from that row
-  g_temp = erdos.renyi.game(n = no_nodes, p.or.m = MC_comp_size$p[i])
-  # what is the larges component size
-  MC_comp_size$size[i] = max(components(g_temp)$csize)
-}
-  
-comp_summary <- # find summarys from the simulations
-  MC_comp_size %>% group_by(p) %>% # group by the parameters
-  summarise(
-    mean_size = mean(size), # calculate the mean and standard dev
-    sd_size = sd(size), 
-    sd_size_p = mean_size + sd_size, # error bars
-    sd_size_m = mean_size - sd_size,
-    size_025 = quantile(size, 0.025), # I prefer to plot percentiles of the 
-    size_975 = quantile(size, 0.975)) # distribution
 
-comp_summary
+# Q: use the function cor() to find the correlation between in and out degree
+# Q: what does this say about out network? 
 
-ggplot(comp_summary, aes(x = p, y = mean_size)) + 
-  geom_vline(xintercept = p[which(no_nodes * p >= 1)][1], color = 'red', linetype = 2, size = 1) + 
-  geom_point() +
-  geom_line() + 
-  geom_ribbon(aes(ymin = size_025, ymax = size_975), fill = "grey", alpha=0.5)
+
+# Q: what is the average degree of these nodes?
+
 
 
 

@@ -146,7 +146,7 @@ degree_df %>%
   )
 
 
-# MC methods --------------------------------------------------------------
+# EX methods --------------------------------------------------------------
 
 # Q: use the following code, as a basis, to test the transitivity of the network as
 # the p changes

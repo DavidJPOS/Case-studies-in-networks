@@ -20,12 +20,15 @@ library(tidyverse)
 # https://raw.githubusercontent.com/rstudio/cheatsheets/master/rstudio-ide.pdf
 ####
 
-# install.packages('devtools') # install this package
-devtools::install_github('https://github.com/DavidJPOS/IntroductionToR')
-# Run this for the introduction to R coding.
-learnr::run_tutorial(name = 'section_1_basics_of_R', package = 'IntroductionToR') 
-# Run this for the introduction to the 'Tidyverse'.
-learnr::run_tutorial(name = 'section_2_basics_of_tidyverse', package = 'IntroductionToR')
+
+# ## dont run this just yet! 
+# # install.packages('devtools') # install this package
+# # install.packages('learnr')
+# devtools::install_github('https://github.com/DavidJPOS/IntroductionToR')
+# # Run this for the introduction to R coding.
+# learnr::run_tutorial(name = 'section_1_basics_of_R', package = 'IntroductionToR') 
+# # Run this for the introduction to the 'Tidyverse'.
+# learnr::run_tutorial(name = 'section_2_basics_of_tidyverse', package = 'IntroductionToR')
 
 
 # basics of r -------------------------------------------------------------
