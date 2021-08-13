@@ -173,7 +173,7 @@ ggplot(all_data, aes(x = cascade_size, y = ccdf, color = type)) +
 # to do select the largest cascade from both and plot them... nicely
 
 
-# simple contagion spread on SW network -----------------------------------
+# EX -----------------------------------
 
 # want to simulate the ICM on the SW network with various networks
 # we are going to keep track of the 
